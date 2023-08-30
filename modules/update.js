@@ -6,6 +6,7 @@ module.exports = class Update {
 
     constructor(callback, dev) {
         if (dev) return callback.noUpdate()
+        autoUpdater.vPrefixedTagName = false
         autoUpdater.on('checking-for-update', () => {
             log.info('업데이트 확인 중...');
         });
@@ -19,6 +20,7 @@ module.exports = class Update {
         });
         autoUpdater.on('error', (err) => {
             log.info('에러가 발생하였습니다. 에러내용 : ' + err);
+            callback.noUpdate()
         });
         autoUpdater.on('download-progress', (progressObj) => {
             let log_message = "다운로드 속도: " + progressObj.bytesPerSecond;

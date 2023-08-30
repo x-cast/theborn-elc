@@ -1,2 +1,4 @@
 node_modules
 1.html
+.env
+dist

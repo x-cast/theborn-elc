@@ -1,30 +1,47 @@
 {
   "name": "theborn",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "",
   "main": "main.js",
   "build": {
     "appId": "com.xcast.theborn",
     "productName": "theborn",
+    "mac": {
+      "target": {
+        "target": "dmg"
+      }
+    },
     "win": {
+      "icon": "./icon.ico",
       "publish": [
-        "github",
-        "bitbucket"
+        "github"
+      ],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     }
   },
   "scripts": {
     "start": "electron .",
+    "deploy": "electron-builder build --win --mac --publish always",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.3.1"
+    "electron": "^25.3.1",
+    "dotenv-cli": "^7.3.0",
+    "electron-builder": "^24.6.3"
   },
   "dependencies": {
     "electron-log": "^4.4.8",
     "electron-store": "^8.1.0",
     "electron-updater": "^6.1.1"
-  }
+  },
+  "vPrefixedTagName": true
 }

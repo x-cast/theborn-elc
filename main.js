@@ -9,6 +9,7 @@ const createWindow = (datas) => {
     const win = new BrowserWindow({
         alwaysOnTop: true,
         fullscreen: true,
+        autoHideMenuBar: true,
         webPreferences: {
             devTools: false,
             nodeIntegration: false, // is default value after Electron v5
@@ -25,6 +26,7 @@ const createWindow = (datas) => {
 
 const createSettingWindow = () => {
     const win = new BrowserWindow({
+        autoHideMenuBar: true,
         alwaysOnTop: true,
         resizable: false,
         frame: false,
@@ -43,7 +45,7 @@ const createSettingWindow = () => {
         Object.keys(dt).forEach(key => {
             db.saveData(key, dt[key])
         })
-        win.destroy()
+        win.close()
         checkToData()
     })
 }
@@ -51,6 +53,7 @@ const createSettingWindow = () => {
 function createDefaultUpdateWindow() {
     updateWin = new BrowserWindow(
         {
+            autoHideMenuBar: true,
             backgroundColor: "#eeeeee",
             webPreferences: { nodeIntegration: true },
         }
@@ -59,7 +62,7 @@ function createDefaultUpdateWindow() {
         updateWin = null;
     })
     // updateWin.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
-    win.loadFile(path.join(__dirname, 'loading.html'))
+    updateWin.loadFile(path.join(__dirname, 'loading.html'))
     return updateWin;
 }
 
