@@ -1,6 +1,6 @@
 {
   "name": "theborn",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "",
   "main": "main.js",
   "build": {
@@ -28,7 +28,8 @@
   },
   "scripts": {
     "start": "electron .",
-    "deploy": "electron-builder build --win --mac --publish always",
+    "deploy": "electron-builder build --win --publish always",
+    "deploy:mac": "electron-builder build --mac --publish always",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
