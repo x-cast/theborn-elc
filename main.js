@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
+const { app, BrowserWindow, ipcMain, globalShortcut, desktopCapturer } = require('electron')
 const path = require("path");
 const DB = require("./modules/db.js");
 const update = require("./modules/update.js");
@@ -7,6 +7,7 @@ let db = null, resetInterval = null, resetCount = 0
 let updateWin = null
 const createWindow = (datas) => {
     const win = new BrowserWindow({
+        name: "TheBornElectron",
         alwaysOnTop: true,
         fullscreen: true,
         autoHideMenuBar: true,
@@ -20,6 +21,16 @@ const createWindow = (datas) => {
     })
     win.webContents.on('did-finish-load', (evt) => {
         win.webContents.send('main', JSON.stringify(datas))
+    })
+    ipcMain.on('source', () => {
+        const platforms = {
+            win32: "windows",
+            win64: "windows",
+            linux: "linux",
+            darwin: "macos",
+        };
+        const os = platforms[process.platform];
+        win.webContents.send('source', JSON.stringify({ screenId: win.getMediaSourceId(), os }))
     })
     win.loadFile(path.join(__dirname, 'index.html'))
 }
@@ -113,7 +124,6 @@ function checkToData() {
 
     const name = db.getData("name")
     const admin = db.getData("admin")
-    console.log(id, name, admin)
     createWindow({ id, name, admin })
 }
 

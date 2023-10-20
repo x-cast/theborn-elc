@@ -8,13 +8,13 @@ const {
 contextBridge.exposeInMainWorld(
     "api", {
     send: (channel, data) => {
-        let validChannels = ["setting"];
+        let validChannels = ["setting", "source"];
         if (validChannels.includes(channel)) {
             ipcRenderer.send(channel, JSON.stringify(data));
         }
     },
     receive: (channel, func) => {
-        let validChannels = ["main"];
+        let validChannels = ["main", "source"];
         if (validChannels.includes(channel)) {
             // Deliberately strip event as it includes `sender` 
             ipcRenderer.on(channel, (event, ...args) => func(...args));
